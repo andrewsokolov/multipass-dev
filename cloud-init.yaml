@@ -1,0 +1,43 @@
+# cloud-config
+
+output: {all: '| tee -a /var/log/cloud-init-output.log'}  # stored inside vm
+
+package_update: true                # default: true
+package_upgrade: false              # default: false
+package_reboot_if_required: true
+
+users:
+  - name: ubuntu
+    shell: /bin/zsh
+
+packages:
+  - build-essential
+  - zsh
+  - bash-completion
+  - ca-certificates
+  - curl
+
+write_files:
+  - path: /home/ubuntu/.ssh/config
+    content: |
+      Host *
+          IdentityFile /mnt/ssh-keys/id_ed25519
+    owner: ubuntu
+    permissions: '0600'
+
+runcmd:
+  - ['su', '-l', 'ubuntu', '-c', 'sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended']
+  - ['usermod', '-s', '/bin/zsh', 'ubuntu']
+
+# ssh_keys:
+#   ~/.ssh/id_ed25519.pub
+
+# write_files:
+#   - path: /home/ubuntu/.bashrc
+#     content: |
+#       # custom
+#       alias update='sudo apt update && sudo apt upgrade && sudo apt dist-upgrade && sudo apt autoremove && sudo apt auto-clean'
+#     append: true
+#   - path: /home/ubuntu/.bash_profile
+#     content: |
+#       [[ -s ~/.bashrc ]] && source ~/.bashrc
