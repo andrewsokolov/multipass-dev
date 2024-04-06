@@ -14,8 +14,17 @@ setup:
 	multipass exec $(INSTANCE_NAME) -- sudo apt-get install -y git build-essential zsh curl wget ca-certificates
 	multipass exec $(INSTANCE_NAME) -- sudo snap install go --classic
 	multipass exec $(INSTANCE_NAME) -- /bin/zsh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+	multipass exec $(INSTANCE_NAME) -- /bin/zsh -c "echo 'source ~/.profile' >> /home/ubuntu/.zshrc"
+	make tools
+
+tools:
+	multipass exec $(INSTANCE_NAME) -- sudo apt install bat
+	multipass exec $(INSTANCE_NAME) -- /bin/zsh -c "mkdir -p ~/.local/bin"
+	multipass exec $(INSTANCE_NAME) -- /bin/zsh -c "ln -s /usr/bin/batcat /home/ubuntu/.local/bin/bat"
 
 repo:
+	multipass exec $(INSTANCE_NAME) -- git config --global user.name "Andrew Sokolov"
+	multipass exec $(INSTANCE_NAME) -- git config --global user.email "mr.andrewsokolov@gmail.com"
 	multipass exec $(INSTANCE_NAME) -- mkdir /home/ubuntu/repos
 	multipass exec $(INSTANCE_NAME) -- git clone git@github.com:andrewsokolov/scylla-project.git /home/ubuntu/repos/scylla-project
 
