@@ -9,9 +9,12 @@ multipass:
 setup:
 	multipass exec multipass-dev -- sudo apt-get update
 	multipass exec multipass-dev -- sudo apt-get install -y git build-essential zsh curl wget ca-certificates
-	multipass exec multipass-dev --  sudo snap install go --classic
+	multipass exec multipass-dev -- sudo snap install go --classic
 	multipass exec multipass-dev -- /bin/zsh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 repo:
 	multipass exec multipass-dev -- mkdir /home/ubuntu/repos
 	multipass exec multipass-dev -- git clone git@github.com:andrewsokolov/scylla-project.git /home/ubuntu/repos/scylla-project
+
+local:
+	multipass exec multipass-dev -- /bin/zsh -c "cd /home/ubuntu/repos/scylla-project && make local"
