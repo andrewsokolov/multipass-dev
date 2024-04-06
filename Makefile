@@ -22,6 +22,9 @@ repo:
 local:
 	multipass exec $(INSTANCE_NAME) -- /bin/zsh -c "cd /home/ubuntu/repos/scylla-project && make local"
 
+local-stop:
+	multipass exec $(INSTANCE_NAME) -- /bin/zsh -c "cd /home/ubuntu/repos/scylla-project && make stop"
+
 save-ssh-config:
 	@LOCAL_IP=$$(multipass info $(INSTANCE_NAME) --format csv | awk -F"," 'NR>1 {print $$3}'); \
     if ! grep -q "Host $(INSTANCE_NAME)" ~/.ssh/config; then \
