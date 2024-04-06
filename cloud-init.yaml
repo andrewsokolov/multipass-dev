@@ -29,6 +29,9 @@ runcmd:
   - ['su', '-l', 'ubuntu', '-c', 'sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended']
   - ['usermod', '-s', '/bin/zsh', 'ubuntu']
 
+# runcmd:
+#   sudo snap install go  --classic
+
 # ssh_keys:
 #   ~/.ssh/id_ed25519.pub
 
