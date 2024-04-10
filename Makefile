@@ -2,6 +2,9 @@ INSTANCE_NAME = multipass-dev
 SSH_KEY_NAME = id_ed25519
 PROJECT_NAME = scylla-project
 
+macos:
+	brew install podman
+
 multipass:
 	multipass launch docker -n $(INSTANCE_NAME) -m 8g -c 4 -d 40gb
 	multipass set client.primary-name=$(INSTANCE_NAME)
