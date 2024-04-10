@@ -36,7 +36,7 @@ repo:
 local:
 	multipass exec $(INSTANCE_NAME) -- /bin/zsh -c "cd /home/ubuntu/repos/$(PROJECT_NAME) && make local"
 
-local-stop:
+stop:
 	multipass exec $(INSTANCE_NAME) -- /bin/zsh -c "cd /home/ubuntu/repos/$(PROJECT_NAME) && make stop"
 
 save-ssh-config:
